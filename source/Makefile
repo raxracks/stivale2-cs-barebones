@@ -8,7 +8,7 @@ ISO = $(SOURCEDIR)/../image.iso
 LIMINE = $(SOURCEDIR)/../limine/limine-install
 
 QEMU = qemu-system-x86_64
-QEMUFLAGS = -enable-kvm -M q35 -cpu max -smp 2 -m 512M -boot d -rtc base=localtime -serial stdio
+QEMUFLAGS = -M q35 -cpu max -smp 2 -m 512M -boot d -rtc base=localtime -serial stdio -M q35,smm=off -d int -no-reboot
 
 XORRISO = xorriso
 XORRISOFLAGS = -as mkisofs -b limine-cd.bin \
@@ -21,8 +21,8 @@ AS = nasm
 AOT = tysila2
 CSC = csc
 
-ASMFLAGS = -f elf64
-AOTFLAGS = --arch x86_64-elf64-tysos -fno-rtti -fno-exceptions
+ASMFLAGS = -f elf64 -g
+AOTFLAGS = --arch x86_64-elf64-tysos -fno-rtti -fno-exceptions -g
 CSCFLAGS = -unsafe -target:exe -platform:x86 -nostdlib /r:$(SOURCEDIR)/mscorlib.dll
 
 LDFLAGS = -T $(SOURCEDIR)/linker.ld -m elf_x86_64 -z max-page-size=0x1000
